@@ -2,21 +2,19 @@ import React from 'react'
 import { addGun, removeGun, addGunAsync} from './index.redux'
 import { connect } from 'react-redux'
 
-
-// 将state塞到props里面
-function mapStatetoProps(state){
-  return {num:state}
-}
-
 // 将所有的action塞到props里面,这些操作自动就有dispatch功能
 const actionCreators = { addGun, removeGun, addGunAsync}
 
 // connect是使用装饰器模式来写的，是一个高阶组件，接受一个组件吐出另一个组件
-@connect(mapStatetoProps, actionCreators)
+@connect(
+  state=>({num:state.counter}), 
+  actionCreators
+)
 
 // 下面这个组件其实是一个dump组件了，只依赖传入的props，可以单独抽离出来
 class App extends React.Component{
   render(){
+    // console.log("app.js",this.props);
     return (
       // 整个应用需要外层的div包裹
       <div>
