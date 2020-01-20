@@ -22,7 +22,7 @@ export function addGun(){
 export function removeGun(){
   return {type:REMOVE_GUN}
 }
-// 模拟异步操作，传入的参数是一个函数dispatch
+// 模拟异步操作，传入的参数是一个函数,以dispatch为参数
 export function addGunAsync(){
   return dispatch =>{
     setTimeout(()=>{

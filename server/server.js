@@ -13,8 +13,8 @@ const User = mongoose.model('user',new mongoose.Schema({
 }))
 // 新增数据
 User.create({
-  user:'WaYiCh-sleep',
-  age:13
+  user:'WaYiCh',
+  age:23
 },function(err,doc){
   if(!err){
     console.log(doc)
@@ -45,6 +45,11 @@ app.get('/find',function(req,res){
     res.json(doc)
   })
 })
+app.get('/data',function(req,res){
+  User.findOne({user:'WaYiCh'},function(err,doc){
+    res.json(doc)
+  })
+})
 // // 查找指定数据
 // app.get('/find',function(req,res){
 //   User.find({'age':26},function(err,doc){
@@ -67,6 +72,6 @@ app.listen(9093,function(){
 app.get('/',function(req,res){
   res.send('<h1>hello world, be patient ! </h1>')
 })
-app.get('/data',function(req,res){
-  res.json({name:'imooc',type:'IT'})
-})
+// app.get('/data',function(req,res){
+//   res.json({name:'imooc',type:'IT'})
+// })

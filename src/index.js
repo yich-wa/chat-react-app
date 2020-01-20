@@ -15,6 +15,9 @@ import {
 import reducers from './reducer.js'
 import Dashboard from './Dashboard.js'
 import Auth from './Auth.js'
+import './config.js'
+import 'antd-mobile/dist/antd-mobile.css'
+
 
 
 const reduxDevTool = window.devToolsExtension?window.devToolsExtension():f=>f
