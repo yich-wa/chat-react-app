@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk  from 'redux-thunk'
 import { Provider } from 'react-redux'
@@ -11,12 +10,11 @@ import {
   Redirect,
   Switch } from 'react-router-dom'
   // Redirect是专门用来跳转的
-// import { counter }from './index.redux.js'
 import reducers from './reducer.js'
-import Dashboard from './Dashboard.js'
-import Auth from './Auth.js'
 import './config.js'
-import 'antd-mobile/dist/antd-mobile.css'
+// import 'antd-mobile/dist/antd-mobile.css'
+import Login from './container/login/login.js'
+import Register from './container/register/register.js'
 
 
 
@@ -41,11 +39,11 @@ const store = createStore(reducers, compose(
 ReactDom.render(
   (<Provider store={store}>
     <BrowserRouter>
-      <Switch>
-        <Route path='/login' exact component={Auth}></Route>
-        <Route path='/dashboard' component={Dashboard}></Route>
-        <Redirect to='/dashboard'></Redirect>
-      </Switch>
+      <div>
+        <Route path='/login' exact component={Login}></Route>
+        <Route path='/register' component={Register}></Route>
+        {/* <Redirect to='/register'></Redirect> */}
+      </div>
     </BrowserRouter>
   </Provider>),document.getElementById('root')
 )
