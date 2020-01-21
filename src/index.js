@@ -15,8 +15,8 @@ import './config.js'
 // import 'antd-mobile/dist/antd-mobile.css'
 import Login from './container/login/login.js'
 import Register from './container/register/register.js'
-
-
+import AuthRoute from './component/authroute/authroute.js'
+import './index.css'
 
 const reduxDevTool = window.devToolsExtension?window.devToolsExtension():f=>f
 // 传入reducer:counter
@@ -32,7 +32,9 @@ const store = createStore(reducers, compose(
 //   一营
 //   二营
 //   骑兵连
-
+function Boss(){
+  return <h1>Boss页面</h1>
+}
 
 // 下面Route路由会有包含关系的一定要加上一个参数exact
 // Route中要带参数，加入一个冒号':'
@@ -40,6 +42,8 @@ ReactDom.render(
   (<Provider store={store}>
     <BrowserRouter>
       <div>
+        <AuthRoute></AuthRoute>
+        <Route path='/boss' component={Boss}></Route>
         <Route path='/login' exact component={Login}></Route>
         <Route path='/register' component={Register}></Route>
         {/* <Redirect to='/register'></Redirect> */}
