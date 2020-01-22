@@ -13,9 +13,24 @@ Router.get('/list',function(req,res){
   })
 })
 
+Router.post('/update',function(req,res){
+  const userid = req.cookies.userid
+  if(!userid){
+    return res.json.dumps({code:1})
+  }
+  const body = req.body
+  // console.log("后端update",body);
+  User.findByIdAndUpdate(userid,body,function(err,doc){
+    const data = Object.assign({},{
+      user:doc.user,
+      type:doc.type
+    },body)
+    return res.json({code:0,data})
+  })
+})
 // 登录信息校验
 Router.post('/login',function(req,res){
-  console.log("post",req.body)
+  // console.log("post",req.body)
   const {user,pwd} = req.body
   // 第一个是登陆条件，第二个是显示条件，将返回的密码数据显示为0
   User.findOne({user,pwd:md5Pwd(pwd)},_filter,function(err,doc){
@@ -31,7 +46,7 @@ Router.post('/login',function(req,res){
   })
 }) 
 
-// 信息入库
+// 注册信息入库
 Router.post('/register',function(req,res){
   console.log("post",req.body)
   const {user,pwd,type} = req.body

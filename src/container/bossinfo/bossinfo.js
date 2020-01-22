@@ -1,6 +1,14 @@
 import React from 'react'
 import {NavBar, InputItem,TextareaItem, Button} from 'antd-mobile'
 import AvatarSelector from '../../component/avatar-selector/avatar-selector.js'
+import {connect} from 'react-redux'
+import {update }  from '../../redux/user.redux.js'
+import {Redirect} from 'react-router-dom'
+
+@connect(
+  state=>state.user,
+  {update}
+)
 class BossInfo extends React.Component{
   constructor(props){
     super(props)
@@ -18,8 +26,12 @@ class BossInfo extends React.Component{
     })
   }
   render(){
+    const path = this.props.location.pathname
+    const redirectTo = this.props.redirectTo
     return (
       <div>
+        {/* 跳转链接与当前链接不一致再进行跳转 */}
+        {redirectTo&&path!==redirectTo ? <Redirect to={this.props.redirectTo}/>: null}
         <NavBar mode="dark">BOSS完善信息页</NavBar>
         <AvatarSelector  
           selectAvatar={(imgname)=>{
@@ -44,7 +56,11 @@ class BossInfo extends React.Component{
           title='职位要求'
         >
         </TextareaItem>
-        <Button type='primary'>保存</Button>
+        <Button 
+          onClick={()=>{
+            this.props.update(this.state)
+          }}
+          type='primary'>保存</Button>
       </div>
     )
   }
