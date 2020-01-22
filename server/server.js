@@ -3,11 +3,12 @@ const userRouter = require('./user')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-
 // 新建app
 const app = express()
 
 app.use(cookieParser())
+
+// 使其可以解析post过来的json
 app.use(bodyParser.json())
 
 // 开启一个中间件，

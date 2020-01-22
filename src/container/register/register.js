@@ -25,6 +25,11 @@ class Register extends React.Component{
     this.setState({
       [key]:value
     })
+    // if(key=='type'){
+    //   this.setState({
+    //     [key]:this.props.type=="genius"?"boss":"genius"
+    //   })
+    // }
   }
 
   handleRegister(){

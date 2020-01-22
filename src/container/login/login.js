@@ -1,11 +1,37 @@
 import React from 'react'
 import Logo from '../../component/logo/logo.js'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
+import { login } from '../../redux/user.redux.js'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
+@connect(state=>state.user,
+  {login}
+  )
 class Login extends React.Component{
 
   constructor(props) {
     super(props)
+    this.state={
+      type:"",
+      user:"",
+      pwd:""
+    }
     this.register = this.register.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
+  }
+
+  // handleChange没有用到this，因此不需要在constructor里面进行绑定
+  handleChange(key,value){
+    // 指定key，改变相应的key
+    this.setState({
+      [key]:value
+    })
+  }
+
+  handleLogin(){
+    console.log("handleLogin",this.state)
+    this.props.login(this.state)
   }
   
   register(){
@@ -14,19 +40,31 @@ class Login extends React.Component{
     // 它是一个路由组件，所以它的props里面有和路由相关的所有操作。
     this.props.history.push('/register')
   }
+
+
   render(){
     return (
       <div>
         <h2>登录页面</h2>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/>:null}
         <Logo></Logo>
         <List>
-          <InputItem>用户</InputItem>
+          {this.props.msg?<p className = "error-msg">{this.props.msg}</p>:null}
+          <InputItem
+            onChange = {v=>this.handleChange('user',v)}
+          >用户</InputItem>
           <WhiteSpace/>
-          <InputItem>密码</InputItem>
+          <InputItem
+            type='password'
+            onChange = {v=>this.handleChange('pwd',v)}
+          >密码</InputItem>
         </List>
         <WhiteSpace/>
         <WingBlank>
-          <Button type='primary'>登录</Button>
+          <Button 
+            type='primary'
+            onClick = {this.handleLogin}
+          >登录</Button>
           <WhiteSpace/>
           <Button onClick={ this.register } type='primary'>注册</Button>
         </WingBlank>
