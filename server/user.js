@@ -8,8 +8,10 @@ const _filter = {'pwd':0,'__v':0}
 // 如果前端是get-list，那么给它返回什么信息
 Router.get('/list',function(req,res){
   // User.remove({},function(err,doc){})
-  User.find({},function(err,doc){
-    return res.json(doc)
+  const {type} = req.query
+  User.find({type},function(err,doc){
+    // 得到的数据必须通过下面这个方式去返回。
+    return res.json({code:0,data:doc})
   })
 })
 

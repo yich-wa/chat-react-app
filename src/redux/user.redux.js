@@ -31,7 +31,8 @@ export function user(state=initState, action){
 }
 
 // payload是一种负载，常见写法
-function authSuccess(data){
+function authSuccess(obj){
+  let {pwd,...data} = obj
   return { type:AUTH_SUCCESS, payload:data }
 }
 

@@ -16,7 +16,9 @@ import './config.js'
 import Login from './container/login/login.js'
 import Register from './container/register/register.js'
 import BossInfo from './container/bossinfo/bossinfo.js'
+import GeniusInfo from './container/geniusinfo/geniusinfo.js'
 import AuthRoute from './component/authroute/authroute.js'
+import Dashboard from './component/dashboard/dashboard.js'
 import './index.css'
 
 const reduxDevTool = window.devToolsExtension?window.devToolsExtension():f=>f
@@ -37,17 +39,22 @@ const store = createStore(reducers, compose(
 //   return <h1>Boss页面</h1>
 // }
 
+
 // 下面Route路由会有包含关系的一定要加上一个参数exact
 // Route中要带参数，加入一个冒号':'
+// boss genius me msg 4个页面
 ReactDom.render(
   (<Provider store={store}>
     <BrowserRouter>
       <div>
         <AuthRoute></AuthRoute> 
         <Switch>
+          <Route path='/geniusinfo' component={GeniusInfo}></Route>
           <Route path='/bossinfo' component={BossInfo}></Route>
           <Route path='/login' exact component={Login}></Route>
           <Route path='/register' component={Register}></Route>
+          {/* 前面如果都没有命中的话，就渲染下面这个路由组件 */}
+          <Route component={Dashboard}></Route>
         </Switch>
         {/* <Redirect to='/register'></Redirect> */}
       </div>
