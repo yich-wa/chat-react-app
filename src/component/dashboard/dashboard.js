@@ -53,7 +53,9 @@ class Dashboard extends React.Component{
         component:User,
       }
     ]
+    console.log("navlist",navList)
     return (
+      
       <div>
         <NavBar className='fixed-header' mode='dark'>{navList.find(v=>v.path==pathname).title}</NavBar>
         <h2>content</h2>

@@ -19,6 +19,7 @@ import BossInfo from './container/bossinfo/bossinfo.js'
 import GeniusInfo from './container/geniusinfo/geniusinfo.js'
 import AuthRoute from './component/authroute/authroute.js'
 import Dashboard from './component/dashboard/dashboard.js'
+import Chat from './component/chat/chat.js'
 import './index.css'
 
 const reduxDevTool = window.devToolsExtension?window.devToolsExtension():f=>f
@@ -53,6 +54,7 @@ ReactDom.render(
           <Route path='/bossinfo' component={BossInfo}></Route>
           <Route path='/login' exact component={Login}></Route>
           <Route path='/register' component={Register}></Route>
+          <Route path='/chat/:user' component={Chat}></Route>
           {/* 前面如果都没有命中的话，就渲染下面这个路由组件 */}
           <Route component={Dashboard}></Route>
         </Switch>

@@ -12,10 +12,7 @@ class Genius extends React.Component{
    this.props.getUserList('boss')
   }
 
-  render(){
-    // const Header = Card.Header
-    // const Body = Card.Body
-    // console.log("render",this.props.userlist)
+  render(){  
     return <UserCard userlist={this.props.userlist} ></UserCard>
   }
 }

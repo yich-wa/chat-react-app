@@ -14,7 +14,7 @@ class Boss extends React.Component{
   }
 
   render(){
-    console.log("render",this.props.userlist)
+    // console.log("render",this.props.userlist)
     return <UserCard userlist={this.props.userlist} ></UserCard>
   }
 }
