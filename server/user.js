@@ -8,9 +8,9 @@ const utils = require('utility')
 const _filter = {'pwd':0,'__v':0}
 
 // 清空聊天信息，
-Chat.remove({},function(req,res){
+// Chat.remove({},function(req,res){
 
-})
+// })
 
 // 如果前端是get-list，那么给它返回什么信息
 Router.get('/list',function(req,res){
@@ -23,13 +23,20 @@ Router.get('/list',function(req,res){
 })
 
 Router.get('/getmsglist',function(req,res){
-  const user = req.cookies.user
-  // {'$or':[{from:user,to:user}]}
-  Chat.find({},function(err,doc){
-    if(!err){
-      return res.json({code:0,msgs:doc})
-    }
+  const user = req.cookies.userid
+  User.find({},function(e,userdoc){
+    let users={}
+    userdoc.forEach(v=>{
+      users[v._id] = {name:v.user, avatar:v.avatar}
+    })
+    // 
+    Chat.find({'$or':[{from:user},{to:user}]},function(err,doc){
+      if(!err){
+        return res.json({code:0,msgs:doc,users:users})
+      }
+    })
   })
+  
 })
 
 Router.post('/update',function(req,res){

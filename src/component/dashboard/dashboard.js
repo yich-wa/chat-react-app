@@ -20,8 +20,10 @@ class Dashboard extends React.Component{
 
   componentDidMount(){
     // redux中管理的函数
-    this.props.getMsgList()
-    this.props.recvMsg()
+    if(!this.props.chat.chatmsg.length){
+      this.props.getMsgList()
+      this.props.recvMsg()
+    }
   }
   render(){
     // console.log("dashboard",this.props)

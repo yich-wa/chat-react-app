@@ -17,7 +17,7 @@ class UserCard extends React.Component{
   render(){
     const Header = Card.Header
     const Body = Card.Body
-    console.log("render",this.props.userlist)
+    // console.log("render",this.props.userlist)
     return (
       <WingBlank>
         {this.props.userlist.map(v=>(

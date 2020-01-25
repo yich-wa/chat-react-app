@@ -21,9 +21,9 @@ io.on('connection',function(socket){
     console.log('sendmsg',data)
     // 接受到数据后，将数据发送到全局
     const {from,to,msg} = data
-    const chatid = [from,to].sort().join('-')
+    const chatid = [from,to].sort().join('_')
     Chat.create({chatid,from,to,content:msg},function(err,doc){
-      console.log("doc",doc)
+      console.log("doc",chatid,doc)
       io.emit('recvmsg',Object.assign({},doc._doc))
     })
   })
