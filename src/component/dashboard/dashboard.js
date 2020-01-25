@@ -6,17 +6,23 @@ import NavLinkBar from '../navlink/navlink.js'
 import Boss from '../../component/boss/boss.js'
 import Genius from '../../component/genius/genius.js'
 import User from '../user/user.js'
+import {getMsgList,recvMsg} from '../../redux/chat.redux.js'
 
 function Msg(){
   return <h2>消息列表页面</h2>
 }
 // @withRouter
 @connect(
-  state=>state
+  state=>state,
+  {getMsgList,recvMsg}
 )
 class Dashboard extends React.Component{
 
-  
+  componentDidMount(){
+    // redux中管理的函数
+    this.props.getMsgList()
+    this.props.recvMsg()
+  }
   render(){
     // console.log("dashboard",this.props)
     const { pathname } = this.props.location
@@ -53,7 +59,7 @@ class Dashboard extends React.Component{
         component:User,
       }
     ]
-    console.log("navlist",navList)
+    // console.log("navlist",navList)
     return (
       
       <div>

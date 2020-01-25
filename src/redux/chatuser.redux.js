@@ -25,7 +25,7 @@ export function getUserList(type){
     then(res=>{
       if(res.data.code==0){
         // 有登录信息的
-        console.log("loadData",res.data)
+        // console.log("loadData",res.data)
         dispatch(userList(res.data.data))
       } 
     })

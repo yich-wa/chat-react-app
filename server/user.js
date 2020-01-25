@@ -1,9 +1,16 @@
 const express = require('express')
 const Router = express.Router()
 const model = require('./module')
+// 获取数据模型
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 const utils = require('utility')
 const _filter = {'pwd':0,'__v':0}
+
+// 清空聊天信息，
+Chat.remove({},function(req,res){
+
+})
 
 // 如果前端是get-list，那么给它返回什么信息
 Router.get('/list',function(req,res){
@@ -12,6 +19,16 @@ Router.get('/list',function(req,res){
   User.find({type},function(err,doc){
     // 得到的数据必须通过下面这个方式去返回。
     return res.json({code:0,data:doc})
+  })
+})
+
+Router.get('/getmsglist',function(req,res){
+  const user = req.cookies.user
+  // {'$or':[{from:user,to:user}]}
+  Chat.find({},function(err,doc){
+    if(!err){
+      return res.json({code:0,msgs:doc})
+    }
   })
 })
 
