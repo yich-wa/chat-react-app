@@ -1,6 +1,6 @@
 import React from 'react'
 import io from 'socket.io-client'
-import { InputItem,List, NavBar,Icon} from 'antd-mobile'
+import { InputItem,List, NavBar,Icon,Grid} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux.js'
 import { getChatId } from '../../util.js'
@@ -15,7 +15,11 @@ const socket = io('ws://localhost:9093')
 class Chat extends React.Component{
   constructor(props){
     super(props)
-    this.state = {text:'',msg:[]}
+    this.state = {
+      text:'',
+      msg:[],
+      showEmoji:false
+    }
   }
   componentDidMount(){
     // redux中管理的函数
@@ -24,6 +28,12 @@ class Chat extends React.Component{
       this.props.getMsgList()
       this.props.recvMsg()
     }
+    this.fixCarousel()
+  }
+  fixCarousel(){
+    setTimeout(function(){
+      window.dispatchEvent(new Event('resize'))
+    },0)
   }
   handleSubmit(){
     // 发送完之后，输入框内清空
@@ -37,10 +47,13 @@ class Chat extends React.Component{
     
   }
   render(){
-    
     const userid = this.props.match.params.user
     const Item = List.Item
     const users = this.props.chat.users
+    const emoji = '😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨 🧐 🤓 😎 🤩 🥳 😏 😒 😞 😔 😟 😕 🙁 ☹️ 😣 😖 😫 😩 🥺 😢 😭 😤 😠 😡 🤬 🤯 😳 🥵 🥶 😱 😨 👍 👎 👊 ✊ 🤛 🤜 🤝 👏 🤞 ✌️ 🤟 🤘 👌 👈 👉 👆 👇 ☝️ ✋'
+                  .split(' ')
+                  .filter(v=>v)// 过滤有两个空格的情况
+                  .map(v=>({text:v}))
     // console.log(user,"this.propps:",this.props)
     if(!users[userid]){
       return null
@@ -87,9 +100,33 @@ class Chat extends React.Component{
               onChange={v=>{
                 this.setState({text:v})
               }}
-              extra = {<span onClick={()=>this.handleSubmit()}>发送</span>}
+              extra = {
+                <div>
+                  <span
+                    style={{marginRight:15}} 
+                    onClick={()=>{
+                      this.setState({showEmoji:!this.state.showEmoji})
+                      this.fixCarousel()
+                    }}
+                  >😀</span>
+                  <span onClick={()=>this.handleSubmit()}>发送</span>
+                </div>
+              }
             ></InputItem>
           </List>
+          {this.state.showEmoji?<Grid
+            data={emoji}
+            columnNum={9}
+            carouselMaxRow={4}
+            isCarousel={true}
+            onClick={el=>{
+              console.log("els",el)
+              this.setState({
+                text:this.state.text+el.text
+              })
+            }}
+          />:null}
+          
           {/* <h2>chat with user:{this.props.match.params.user}</h2> */}
         </div>
       </div>
