@@ -2,7 +2,7 @@ import React from 'react'
 import io from 'socket.io-client'
 import { InputItem,List, NavBar,Icon,Grid} from 'antd-mobile'
 import { connect } from 'react-redux'
-import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux.js'
+import { getMsgList,sendMsg,recvMsg,readMsg } from '../../redux/chat.redux.js'
 import { getChatId } from '../../util.js'
 
 const socket = io('ws://localhost:9093')
@@ -10,7 +10,7 @@ const socket = io('ws://localhost:9093')
 // 直接获取所有状态，对组件状态进行分解
 @connect(
   state=>state,
-  {getMsgList,sendMsg, recvMsg}
+  {getMsgList,sendMsg, recvMsg,readMsg}
 )
 class Chat extends React.Component{
   constructor(props){
@@ -29,6 +29,12 @@ class Chat extends React.Component{
       this.props.recvMsg()
     }
     this.fixCarousel()
+    // console.log("props",this.props)
+  }
+  componentWillUnmount(){
+    // 聊天对象的id
+    const to = this.props.match.params.user
+    this.props.readMsg(to)
   }
   fixCarousel(){
     setTimeout(function(){
@@ -84,7 +90,7 @@ class Chat extends React.Component{
             ):(
               <List key={v._id}>
                 <Item 
-                  extra={<img src={avatar} /> }
+                  extra={<img src={avatar}/> }
                   className='chat-me'
                 >{v.content}</Item>
               </List>
@@ -120,7 +126,6 @@ class Chat extends React.Component{
             carouselMaxRow={4}
             isCarousel={true}
             onClick={el=>{
-              console.log("els",el)
               this.setState({
                 text:this.state.text+el.text
               })

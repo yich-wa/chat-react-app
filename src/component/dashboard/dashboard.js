@@ -5,12 +5,13 @@ import { Switch, Route } from 'react-router-dom'
 import NavLinkBar from '../navlink/navlink.js'
 import Boss from '../../component/boss/boss.js'
 import Genius from '../../component/genius/genius.js'
+import Msg from '../../component/msg/msg.js'
 import User from '../user/user.js'
 import {getMsgList,recvMsg} from '../../redux/chat.redux.js'
 
-function Msg(){
-  return <h2>消息列表页面</h2>
-}
+// function Msg(){
+//   return <h2>消息列表页面</h2>
+// }
 // @withRouter
 @connect(
   state=>state,

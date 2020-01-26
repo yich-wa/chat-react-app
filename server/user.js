@@ -39,6 +39,25 @@ Router.get('/getmsglist',function(req,res){
   
 })
 
+Router.post('/readmsg',function(req,res){
+  const userid = req.cookies.userid
+  // console.log("req",req)
+  const {from} = req.body
+  console.log("readmsg",userid,from)
+  // 更新，共计4个参数，第一个条件是更新范围，第二个是数据更新设置
+  Chat.updateMany(
+    {from,to:userid},// 过滤条件
+    {'$set':{read:true}}, // 更新数据
+    // {'multi':true}, // 是否更新所有
+    function(err,doc){    // 回调函数
+    console.log("doc",doc) // doc {n:1, nModified:1, ok:1}
+    if(!err){
+      return res.json({code:0,num:doc.nModified})
+    }
+    return res.json({code:1,msg:'修改失败'})
+  })
+})
+
 Router.post('/update',function(req,res){
   const userid = req.cookies.userid
   if(!userid){
