@@ -2,15 +2,9 @@
 
 It's a practice demo about "react/ react-redux/ redux/ react-router-dom ...". You can see the technique from the picture below . Though it's not very complete , but the it help me practice these techniques.
 
-**Project technique **
+**Project and File structure**
 
-![component](jpeg\component.jpg)
-
-**File structure**
-
-![file](jpeg\file.jpg)
-
-
+![chat-webApp](jpeg\chat-webApp.jpg)
 
 **Steps to start**
 
@@ -18,7 +12,9 @@ In the project directory, you can run :
 
 > npm install
 
-Start the mongdb in your own computer, then enter the ***server*** directory , run:
+Start the ***mongdb*** in your own computer
+
+ Then enter the ***server*** directory , run:
 
 > nodemon server.js
 
@@ -27,17 +23,17 @@ According this, you start the server part , next :
 > npm start 
 
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open http://localhost:3000/login to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
 **Outcome**
 
-> Login page
+> Login/Register/InfoFinish/BossList
 
 ![1](jpeg\1.jpg)
 
->Dashboard
+>MessageList/PersonInfo/LoginOut/ChatInfo
 
-![3](jpeg\3.jpg)
+![2](jpeg\2.jpg)
